@@ -1,0 +1,45 @@
+:root{
+  --theme: #339947;
+  --active:#03897b;
+}
+*{
+  padding:0;
+  margin:0;
+}
+.sideBar #toggle-sidebar-btn {
+  height: 60px;
+  width: 18px;
+  color: #fff;
+  background-color: var(--theme);
+  border: 2px solid #555;
+  border-radius: 0 7px 7px 0;
+  position: absolute;
+  right: -18px;
+  top: 40%;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container{
+  display: flex;
+  max-width: 100% !important;
+}
+
+.map, .content{
+  width: 100%;
+}
+.sideBar{
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  border-right: 2px solid #555;
+  width: 550px;
+  transition: width 0.8s ease;
+
+}
+.showSideBar{
+  width:0;
+}
+
+

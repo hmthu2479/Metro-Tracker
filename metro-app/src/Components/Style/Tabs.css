@@ -1,0 +1,34 @@
+@import "./../../App.css";
+[role="tablist"]{
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #dee2e6;
+}
+[role="tablist"] button {
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    display: block;
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: border 0.2s ease-in-out 0s;
+    width: 50%;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #777;
+    &:active,&:focus,&:hover{
+        border-bottom: 1px solid var(--theme);
+        color: var(--theme);
+    }
+}
+[role="tabpanel"] {
+    padding:3px 20px;
+}
+#sideBarSearchBar{
+    padding:10px 25px;
+    background-color: #eeebeb;
+    border-radius: 5px;
+    width: 100%;
+    margin:10px 0;
+}
