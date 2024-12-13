@@ -1,5 +1,5 @@
 // import { NavLink } from 'react-router-dom';
-import '../Style/Header.css';
+import '../Style/Header.scss';
 import logo from '../../assets/logo.png';
 import React, { useRef} from 'react';
 import { Button } from 'primereact/button';

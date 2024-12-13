@@ -1,0 +1,95 @@
+[role="routelist"]{
+    button{
+        display: flex;
+        justify-content: left;
+        width: 100%;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        background-color: #f8f5f5;
+        border-radius: 10px;
+        padding:12px 18px 12px 12px;
+        gap:15px;
+        #route-icon{
+            height:50px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding:8px;
+        }
+    }
+}.right-section{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+
+    h2{
+        font-weight: 700;
+        color: var(--theme);
+        font-size: 16px;
+    }
+    .sub-info{
+        margin-top: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+
+    }
+}
+
+.route-header{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 12px 6px 15px;
+    .pi-arrow-circle-left{
+        margin-right: 20px;
+        margin-top:7px;
+        font-size: 18px;
+    }
+    h2{
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+.directions{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #f8f5f5;
+    border-radius: 8px;
+    button{
+        padding: 10px 6px;
+        width:50%;
+        &.active{
+            background-color: var(--theme);
+            color: aliceblue;
+            font-weight: 600;
+        }
+        &:nth-child(1){ 
+            border-radius: 8px 0 0 8px;
+        }
+        &:nth-child(2){ 
+            border-radius: 0 8px 8px 0;
+        }
+    }
+
+}
+[role="headertablist"]{
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 2px;
+    background-color: #ececec;
+    border-radius: 5px;
+    margin:8px 0;
+    font-size: 15px;
+    
+    button.active{
+        background-color: white !important;
+        padding: 4px 12px !important;
+        border-radius: 5px;
+    }
+}
+

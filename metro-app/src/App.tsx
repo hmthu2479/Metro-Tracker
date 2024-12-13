@@ -7,12 +7,13 @@ import { Button } from 'primereact/button';
 import TabNavigate from './Components/Pages/TabNavigate';
 import TabSearch from './Components/Pages/TabSearch';
 import Tabs from './Components/Pages/Tabs';
+import busLogo from './assets/logo.png'
 import 'primeicons/primeicons.css';
         
 
 const routes = [ 
-  { index: 1, label: 'Route 1', description: 'Details about Route 1', OpeningHr: '6 AM - 10 PM', price: '$2.00', icon: 'pi pi-bus', busStops: 'Stop A, Stop B' }, 
-  { index: 2, label: 'Route 2', description: 'Details about Route 2', OpeningHr: '7 AM - 11 PM', price: '$2.50', icon: 'pi pi-bus', busStops: 'Stop C, Stop D' },  
+  { index: 1, label: 'Route 1', description: 'Details about Route 1', OpeningHr: '6 AM - 10 PM', price: '2.00', icon: busLogo, busStops: 'Stop A, Stop B' }, 
+  { index: 2, label: 'Route 2', description: 'Details about Route 2', OpeningHr: '7 AM - 11 PM', price: '2.50', icon: busLogo, busStops: 'Stop C, Stop D' },  
 ];
 type TabsType ={
   label:string;
@@ -20,6 +21,7 @@ type TabsType ={
   Component: React.FC<any>;
   icon:string;
 }[];
+
 
 const tabs: TabsType =[
   {
@@ -29,11 +31,7 @@ const tabs: TabsType =[
       <TabSearch
         {...props}
         routes={routes}
-        selectedRoute={null}
-        onClick={(routeIndex) => {
-          console.log(`Route ${routeIndex} clicked`);
-        }}
-        
+        selectedRoute={null}       
       />
     ),
     icon:"pi pi-search"
@@ -48,6 +46,7 @@ const tabs: TabsType =[
 
 
 
+
 const App: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedTab ,setSelectedTab] = useState<number>(tabs[0].index);
@@ -55,7 +54,7 @@ const App: React.FC = () => {
   
   const handleRouteClick = (routeIndex: number) => {
     console.log(`Route ${routeIndex} clicked`);
-    setSelectedRoute(routeIndex); // Update selectedRoute state
+    setSelectedRoute(routeIndex);
   };
 
   return (
@@ -74,8 +73,8 @@ const App: React.FC = () => {
                     <TabSearch
                       {...props}
                       routes={routes}
-                      selectedRoute={selectedRoute} // Pass selectedRoute
-                      onClick={handleRouteClick} // Pass handleRouteClick
+                      selectedRoute={selectedRoute}
+                      onClick={handleRouteClick} 
                     />
                   ) : (
                     <tab.Component {...props} />

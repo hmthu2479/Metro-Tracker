@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import "../Style/Tabs.css"
+import "../Style/Tabs.scss"
         
 
 //Define data type for props of Tabs Components

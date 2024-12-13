@@ -17,7 +17,7 @@
     font-weight: 600;
     text-transform: uppercase;
     color: #777;
-    &:active,&:focus,&:hover{
+    &.active,&:focus,&:hover{
         border-bottom: 1px solid var(--theme);
         color: var(--theme);
     }
