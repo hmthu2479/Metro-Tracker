@@ -9,7 +9,6 @@ import TabSearch from './Components/Pages/TabSearch';
 import Tabs from './Components/Pages/Tabs';
 import 'primeicons/primeicons.css';
 import useFetchRouteData from './Components/Hooks/useFetchRouteData';
-import axios from "axios";
 
         
 type TabsType ={
