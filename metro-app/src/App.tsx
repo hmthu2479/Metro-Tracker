@@ -1,20 +1,17 @@
 import './App.css';
 import React ,{useState, useEffect, useRef} from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup,Polyline ,useMap} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import Header from './Components/Pages/Header';
 import { Button } from 'primereact/button';
 import TabNavigate from './Components/Pages/TabNavigate';
 import TabSearch from './Components/Pages/TabSearch';
 import Tabs from './Components/Pages/Tabs';
-import busLogo from './assets/logo.png'
 import 'primeicons/primeicons.css';
-        
+import useFetchRouteData from './Components/Hooks/useFetchRouteData';
+import axios from "axios";
 
-const routes = [ 
-  { index: 1, label: 'Route 1', description: 'Details about Route 1', OpeningHr: '6 AM - 10 PM', price: '2.00', icon: busLogo, busStops: 'Stop A, Stop B' }, 
-  { index: 2, label: 'Route 2', description: 'Details about Route 2', OpeningHr: '7 AM - 11 PM', price: '2.50', icon: busLogo, busStops: 'Stop C, Stop D' },  
-];
+        
 type TabsType ={
   label:string;
   index:number;
@@ -30,7 +27,6 @@ const tabs: TabsType =[
     Component: (props) => (
       <TabSearch
         {...props}
-        routes={routes}
         selectedRoute={null}       
       />
     ),
@@ -43,19 +39,33 @@ const tabs: TabsType =[
     icon:"pi pi-map"
   },
 ];
-
-
+const UpdateMapCenter = ({center}:{center: [number,number]}) =>{
+  const map = useMap();
+  useEffect(()=>{
+    if(center){
+      map.flyTo(center,16);
+    }
+  },[center,map]);
+  return null; // This component doesn't render anything, just interacts with the map instance
+}
 
 
 const App: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [selectedTab ,setSelectedTab] = useState<number>(tabs[0].index);
   const [selectedRoute, setSelectedRoute] = useState<number | null>(null);
+
+  const { routes, Stops, RoutePaths, center } = useFetchRouteData(selectedRoute);
   
   const handleRouteClick = (routeIndex: number) => {
     console.log(`Route ${routeIndex} clicked`);
     setSelectedRoute(routeIndex);
   };
+
+  useEffect(()=>{
+    <MapContainer></MapContainer>
+  },[setVisible])
+  
 
   return (
     <>
@@ -85,16 +95,27 @@ const App: React.FC = () => {
           <Button id="toggle-sidebar-btn" icon= "pi pi-caret-right" onClick={() => setVisible(!visible)}/>
         </div>
         <div className="map">
-          <MapContainer center={[10.77510, 106.69831]} zoom={17} scrollWheelZoom={false} style={{ height: "calc(100vh - 69.97px)", width: "100%" }}>
+          <MapContainer 
+          center={center} zoom={16} scrollWheelZoom={true} style={{ height: "calc(100vh - 69.97px)", width: "100%" }}>
+            <UpdateMapCenter center={center}/>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[10.77510, 106.69831]}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
+            {Stops.map((Stop) =>(
+              <Marker key={Stop.id} position={[Stop.lat, Stop.lon]}>
+                <Popup>
+                  {Stop.tags.name || "Unnamed Stop"}
+                </Popup>
+              </Marker>
+            ))}      
+
+              <Polyline 
+                positions={RoutePaths} 
+                color="#54C069" 
+                weight={5} 
+              />
+              
           </MapContainer>
         </div>
       </div> 

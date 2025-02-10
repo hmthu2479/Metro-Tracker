@@ -7,6 +7,7 @@ import Rating from '../Pages/TabSearch/RouteHeaderTabs/Rating';
 import { InputText } from "primereact/inputtext";
 import 'primeicons/primeicons.css';
 import "../Style/Routes.scss"
+import axios from "axios";
 
 type Route = {
   index: number;
@@ -14,7 +15,7 @@ type Route = {
   OpeningHr: string;
   price: string;
   icon: string;
-  busStops: string;
+  stops: string;
 };
 
 type RouteHeaderTabsType ={
@@ -64,6 +65,8 @@ const TabSearch: FC<RoutesProps> = ({
   const [showDetails, setShowDetails] = useState(false);
   const [forward, setforward] = useState(true);
   const [selectedTab ,setSelectedTab] = useState<number>(routeHeaderTabs[1].index);
+  const [search, setSearch] = useState<string>('');
+
 
   const handleRouteClick = (index: number) => {
     if (selectedRoute === index && !showDetails) {
@@ -73,6 +76,15 @@ const TabSearch: FC<RoutesProps> = ({
       onClick(index);
     }
   };
+  useEffect(() =>{
+    const handler = setTimeout(()=>{
+      setSearch(search);
+    },500);
+
+    return() =>{
+      clearTimeout(handler);
+    }
+  },[search])
 
   useEffect(()=>{
     if (selectedRoute !== null) {
@@ -80,7 +92,7 @@ const TabSearch: FC<RoutesProps> = ({
     }
   },[selectedRoute])
   
-  console.log("showDetails:", showDetails, "routeInfo:", routeInfo);
+  // console.log("showDetails:", showDetails, "routeInfo:", routeInfo);
   return (
     <Fragment>
       {showDetails && routeInfo ? (
@@ -107,10 +119,17 @@ const TabSearch: FC<RoutesProps> = ({
         </div>
       ) : (
         <div className={className}>
-          <InputText placeholder="Search" id="sideBarSearchBar" />
+          <InputText placeholder="Search" id="sideBarSearchBar" value={search} onChange={(e: { target: { value: string; }; }) => setSearch(e.target.value)}/>
           <div role="routelist">
             {routes.length > 0 ? (
-              routes.map((route) => (
+              routes
+              .filter(
+                (route) =>
+                  search == "" || 
+                  route.index.toString().includes(search.toLowerCase()) ||
+                  route.stops.toLowerCase().includes(search.toLowerCase()) 
+              )
+              .map((route) => (
                 <button
                   className={selectedRoute === route.index ? "active" : ""}
                   onClick={() => {
@@ -133,14 +152,14 @@ const TabSearch: FC<RoutesProps> = ({
                   
                   <div className="right-section">
                     <h2>{route.label}</h2>
-                    <p>{route.busStops}</p>
+                    <p>{route.stops}</p>
                     <div className="sub-info">
                       <div>
-                        <i className="pi pi-clock" style={{ marginRight: "8px", fontSize:"15px" }}></i>
+                        <i className="pi pi-clock"></i>
                         {route.OpeningHr}
                       </div>
                       <div>
-                        <i className="pi pi-dollar" style={{ marginRight: "8px" , fontSize:"15px"}}></i>
+                        <i className="pi pi-dollar"></i>
                         {route.price}
                       </div>
                     </div>
@@ -150,6 +169,7 @@ const TabSearch: FC<RoutesProps> = ({
             ) : (
               <p>No routes available.</p>
             )}
+
           </div>
         </div>
       )}

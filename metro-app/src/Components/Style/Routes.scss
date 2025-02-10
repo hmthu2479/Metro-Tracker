@@ -10,7 +10,7 @@
         padding:12px 18px 12px 12px;
         gap:15px;
         #route-icon{
-            height:50px;
+            height:40px;
             background-color: #fff;
             border-radius: 10px;
             padding:8px;
@@ -27,17 +27,38 @@
         color: var(--theme);
         font-size: 16px;
     }
+    p{
+        font-size: 16px;
+        text-align: left;
+    }
     .sub-info{
+        font-size: 15px;
         margin-top: 5px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 100%;
         align-items: center;
+        color: #222;
+        text-align: left;
 
+        .pi{
+            margin-right: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            vertical-align: top;
+            margin-top:4.5px;
+        }
     }
 }
+.pi.pi-dollar{
+    border-radius: 50% !important;
+    border: 2px solid #222 !important;
+    padding:2px !important;
+    font-size: 10px !important;
+    margin-top:3.5px !important;
 
+}
 .route-header{
     display: flex;
     align-items: center;

@@ -23,7 +23,9 @@
     }
 }
 [role="tabpanel"] {
-    padding:3px 20px;
+    padding:3px 10px;
+    overflow-y: auto;
+    height: calc(100vh - 69.97px - 52px);
 }
 #sideBarSearchBar{
     padding:10px 25px;
